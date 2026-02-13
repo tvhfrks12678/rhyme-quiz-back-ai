@@ -1,15 +1,28 @@
 {
   "name": "rhyme-quiz-back-ai",
   "version": "1.0.50",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@libsql/client": "^0.14.0",
+    "drizzle-orm": "^0.38.3",
+    "effect": "^3.12.8",
+    "elysia": "^1.2.10"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/node": "^22.10.5",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.30.1",
+    "dotenv": "^16.4.7",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
   },
   "module": "src/index.js"
 }
