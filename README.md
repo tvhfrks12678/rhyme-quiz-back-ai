@@ -1,15 +1,77 @@
-# Elysia with Bun runtime
+# Elysia + Turso + Effect + Drizzle + Vitest (Hexagonal Architecture)
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
+`features/todo` を中心に、ヘキサゴナルアーキテクチャで Todo CRUD を実装しています。
+
+## セットアップ
+
 ```bash
-bun create elysia ./elysia-example
+bun install
+cp .env.example .env
 ```
 
-## Development
-To start the development server run:
+`.env` に Turso Cloud 情報を設定してください（ローカルDBは使いません）。
+
+```env
+TURSO_DATABASE_URL=libsql://xxxx.turso.io
+TURSO_AUTH_TOKEN=...
+PORT=3000
+```
+
+## 開発
+
 ```bash
 bun run dev
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+## テスト (Vite/Vitest)
+
+```bash
+bun run test
+```
+
+## Drizzle
+
+```bash
+bun run db:generate
+bun run db:push
+```
+
+## Vercel
+
+- エントリーポイント: `api/index.ts`
+- ルーティング: `vercel.json`
+
+## ディレクトリ構成
+
+```text
+.
+├── drizzle.config.ts
+├── vercel.json
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── src
+│   ├── shared
+│   │   └── db
+│   │       ├── client.ts
+│   │       └── schema.ts
+│   ├── features
+│   │   └── todo
+│   │       ├── domain
+│   │       │   ├── model.ts
+│   │       │   └── error.ts
+│   │       ├── application
+│   │       │   ├── repository.port.ts
+│   │       │   └── usecase.ts
+│   │       ├── infrastructure
+│   │       │   └── repository.impl.ts
+│   │       ├── presentation
+│   │       │   ├── controller.ts
+│   │       │   └── dto.ts
+│   │       └── tests
+│   │           └── todo.integration.test.ts
+│   ├── main.ts
+│   └── index.ts
+└── api
+    └── index.ts
+```
