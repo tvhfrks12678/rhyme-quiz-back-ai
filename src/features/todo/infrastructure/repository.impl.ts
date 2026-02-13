@@ -21,7 +21,7 @@ export class DrizzleTodoRepository implements TodoRepository {
   }
 
   async findById(id: string): Promise<Todo | null> {
-    const row = await this.db.query.todos.findFirst({ where: eq(todos.id, id) });
+    const [row] = await this.db.select().from(todos).where(eq(todos.id, id)).limit(1);
     return row ? toDomain(row) : null;
   }
 
